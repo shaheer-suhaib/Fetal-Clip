@@ -1,0 +1,17 @@
+{
+  "paths": {
+    "dir_data": "<path_to_fetalplanesdb_data>/Images",
+    "path_data_csv": "<path_to_fetalplanesdb_data>/FETAL_PLANES_DB_data.csv",
+    "path_train_val_split": "train_val_split.json",
+    "path_test_split": "test_split.json",
+    "dir_preprocessed": "<path_to_preprocessed_data>",
+    "dir_experiment_logs": "experiment_logs",
+    "path_fetalclip_config": "../../FetalCLIP_config.json",
+    "path_fetalclip_weight": "../../FetalCLIP_weights.pt"
+  },
+  "params": {
+    "num_workers": 4,
+    "batch_size": 16,
+    "max_epochs": 100
+  }
+}
