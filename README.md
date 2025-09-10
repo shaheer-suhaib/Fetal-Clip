@@ -1,5 +1,5 @@
-FetalCLIP 
-===========
+# FetalCLIP
+
 ## A Visual-Language Foundation Model for Fetal Ultrasound Image Analysis
 
 **Mohamed bin Zayed University of Artificial Intelligence (MBZUAI)** <br>
@@ -13,36 +13,38 @@ FetalCLIP
 FetalCLIP is a vision-language foundation model designed specifically for fetal ultrasound image analysis. Unlike general-purpose models, FetalCLIP is pre-trained on 210,035 fetal ultrasound images paired with text, making it the largest dataset of its kind used for foundation model development. By leveraging multimodal learning, FetalCLIP generates universal representations of fetal ultrasound imagery. This innovative approach allows FetalCLIP to capture essential anatomical information, yielding robust representations that can be applied to a variety of clinically relevant downstream tasks.
 
 ## 📝 Highlights
-> **Abstract:** *Foundation models are becoming increasingly effective in the medical domain, offering pre-trained models on large datasets that can be readily adapted for downstream tasks. Despite progress, fetal ultrasound images remain a challenging domain for foundation models due to their inherent complexity, often requiring substantial additional training and facing limitations due to the scarcity of paired multimodal data. To overcome these challenges, here we introduce FetalCLIP, a vision-language foundation model capable of generating universal representation of fetal ultrasound images. FetalCLIP was pre-trained using a multimodal learning approach on a diverse dataset of 210,035 fetal ultrasound images paired with text. This represents the largest paired dataset of its kind used for foundation model development to date. This unique training approach allows FetalCLIP to effectively learn the intricate anatomical features present in fetal ultrasound images, resulting in robust representations that can be used for a variety of downstream applications. In extensive benchmarking across a range of key fetal ultrasound applications, including classification, gestational age estimation, congenital heart defect (CHD) detection, and fetal structure segmentation, FetalCLIP outperformed all baselines while demonstrating remarkable generalizability and strong performance even with limited labeled data. We plan to release the FetalCLIP model publicly for the benefit of the broader scientific community.*
+
+> **Abstract:** _Foundation models are becoming increasingly effective in the medical domain, offering pre-trained models on large datasets that can be readily adapted for downstream tasks. Despite progress, fetal ultrasound images remain a challenging domain for foundation models due to their inherent complexity, often requiring substantial additional training and facing limitations due to the scarcity of paired multimodal data. To overcome these challenges, here we introduce FetalCLIP, a vision-language foundation model capable of generating universal representation of fetal ultrasound images. FetalCLIP was pre-trained using a multimodal learning approach on a diverse dataset of 210,035 fetal ultrasound images paired with text. This represents the largest paired dataset of its kind used for foundation model development to date. This unique training approach allows FetalCLIP to effectively learn the intricate anatomical features present in fetal ultrasound images, resulting in robust representations that can be used for a variety of downstream applications. In extensive benchmarking across a range of key fetal ultrasound applications, including classification, gestational age estimation, congenital heart defect (CHD) detection, and fetal structure segmentation, FetalCLIP outperformed all baselines while demonstrating remarkable generalizability and strong performance even with limited labeled data. We plan to release the FetalCLIP model publicly for the benefit of the broader scientific community._
 >
-![main figure](assets/banner.png)
+> ![main figure](assets/banner.png)
 
 ## 🏆 Contributions
+
 - **Foundation Model:** We introduce FetalCLIP, the first-of-its-kind foundation model designed for fetal ultrasound image analysis, incorporating a large pretraining dataset of diverse image-text paired fetal ultrasound images.
 - **Zero-Shot Performance:** FetalCLIP achieves outstanding zero-shot performance in fetal plane classification and gestational age estimation, while also effectively clustering fetal anatomical structures, potentially improving workflow efficiency in clinical practice.
 - **Feature Extraction:** Our extensive evaluation demonstrates that FetalCLIP serves as a strong feature extractor for fetal ultrasound analysis.
 
 ## 📊 Benchmarks
 
-| Model       | Zero-Shot: Fetal Planes Classification (F1-Score) | Zero-Shot: Brain Subplanes Classification (F1-Score) | Zero-Shot: GA Estimation (VPR) | Probing: Fetal Planes Classification (F1-Score) | Probing: Brain Subplanes Classification (F1-Score) | Probing: CHD Detection (F1-Score) | Probing: Segmentation - HC (DSC) | Probing: Segmentation - Abdomen View (DSC) | Probing: Segmentation - 4-Chamber View (DSC) |
-|------------|--------------------------------|--------------------------------|-------------------|--------------------------------|--------------------------------|----------------------------|----------------|----------------|----------------|
-| CLIP [[1]](https://github.com/openai/CLIP)       | 30.77                          | 20.61                          | 11.43             | 86.74                          | 63.42                          | 67.88                      | 97.70          | 79.42          | 70.22          |
-| BiomedCLIP [[2]](https://ai.nejm.org/doi/full/10.1056/AIoa2400640) | 60.34                          | 23.62                          | 24.45             | 85.64                          | 58.20                          | 64.32                      | 97.73          | 78.79          | 70.09          |
-| UniMed-CLIP [[3]](https://arxiv.org/abs/2412.10372) | 67.95                          | 18.75                          | 8.97              | 85.96                          | 60.67                          | 71.80                      | 97.84          | 80.12          | 69.27          |
-| **FetalCLIP**  | **97.27**                        | **70.15**                        | **83.42**           | **94.73**                        | **82.01**                        | **78.72**                      | **97.92**        | **81.82**        | **72.91**        |
-
+| Model                                                              | Zero-Shot: Fetal Planes Classification (F1-Score) | Zero-Shot: Brain Subplanes Classification (F1-Score) | Zero-Shot: GA Estimation (VPR) | Probing: Fetal Planes Classification (F1-Score) | Probing: Brain Subplanes Classification (F1-Score) | Probing: CHD Detection (F1-Score) | Probing: Segmentation - HC (DSC) | Probing: Segmentation - Abdomen View (DSC) | Probing: Segmentation - 4-Chamber View (DSC) |
+| ------------------------------------------------------------------ | ------------------------------------------------- | ---------------------------------------------------- | ------------------------------ | ----------------------------------------------- | -------------------------------------------------- | --------------------------------- | -------------------------------- | ------------------------------------------ | -------------------------------------------- |
+| CLIP [[1]](https://github.com/openai/CLIP)                         | 30.77                                             | 20.61                                                | 11.43                          | 86.74                                           | 63.42                                              | 67.88                             | 97.70                            | 79.42                                      | 70.22                                        |
+| BiomedCLIP [[2]](https://ai.nejm.org/doi/full/10.1056/AIoa2400640) | 60.34                                             | 23.62                                                | 24.45                          | 85.64                                           | 58.20                                              | 64.32                             | 97.73                            | 78.79                                      | 70.09                                        |
+| UniMed-CLIP [[3]](https://arxiv.org/abs/2412.10372)                | 67.95                                             | 18.75                                                | 8.97                           | 85.96                                           | 60.67                                              | 71.80                             | 97.84                            | 80.12                                      | 69.27                                        |
+| **FetalCLIP**                                                      | **97.27**                                         | **70.15**                                            | **83.42**                      | **94.73**                                       | **82.01**                                          | **78.72**                         | **97.92**                        | **81.82**                                  | **72.91**                                    |
 
 ## 🔧 Installation
 
 To set up the environment and install dependencies, follow these steps:
 
 ```bash
-conda create -n fetalclip python=3.9
+conda create -n fetalclip python=3.9  uv venv fetalclip --python 3.9
 conda activate fetalclip
 pip install -r requirements.txt
 ```
 
 ## 📥 Download FetalCLIP weights
+
 The pretrained FetalCLIP model can be downloaded from the following link:
 
 ➡️ [Download FetalCLIP_weights.pt](https://mbzuaiac-my.sharepoint.com/:f:/g/personal/fadillah_maani_mbzuai_ac_ae/EspGREsyuOtEpxt36RoEUBoB6jtlsvPeoiDTBC1qX8WdZQ?e=uAbuyv)
@@ -103,6 +105,7 @@ print("Label probs:", text_probs)
 ```
 
 ## 🔄 Reproducibility
+
 This repository includes scripts for evaluating and reproducing FetalCLIP results:
 
 - **`zero_shot_planes_db/`**  
