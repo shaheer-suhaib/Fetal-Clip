@@ -1,0 +1,16 @@
+Upload Ultrasound Image/Video,output,flag,username,timestamp
+flagged\Upload Ultrasound ImageVideo\fcefcaf5e3e763e2f765\Patient00004_Plane1_12_of_30.png,"Image: Patient00004_Plane1_12_of_30.png
+Predicted plane: cervix
+Confidence: 0.5899
+
+All probabilities:
+  abdomen: 0.0017
+  brain: 0.3659
+  femur: 0.0002
+  heart: 0.0331
+  kidney: 0.0002
+  lips_nose: 0.0012
+  profile_patient: 0.0074
+  spine: 0.0005
+  cervix: 0.5899
+",,,2025-09-18 11:23:41.893254
