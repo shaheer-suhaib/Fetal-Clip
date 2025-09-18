@@ -11,12 +11,12 @@ from tqdm import tqdm
 from torchmetrics import Accuracy, F1Score
 
 # Constants and Configuration
-DIR_IMAGES = "<path_to_fetalplanesdb_data>/Images"
-PATH_CSV = "<path_to_fetalplanesdb_data>/FETAL_PLANES_DB_data.csv"
+DIR_IMAGES = "../data/Planes/FETAL_PLANES_ZENODO/Images"
+PATH_CSV = "../data/Planes/FETAL_PLANES_ZENODO/FETAL_PLANES_DB_data.csv"
 PATH_FETALCLIP_WEIGHT = "../FetalCLIP_weights.pt"
 PATH_FETALCLIP_CONFIG = "../FetalCLIP_config.json"
 PATH_TEXT_PROMPTS = "test_five_planes_prompts.json"
-BATCH_SIZE = 16
+BATCH_SIZE = 1
 NUM_WORKERS = 4
 
 # Set device
@@ -30,7 +30,7 @@ open_clip.factory._MODEL_CONFIGS["FetalCLIP"] = config_fetalclip
 class DatasetFetalPlanesDB(torch.utils.data.Dataset):
     def __init__(
             self, dir_images, path_csv, preprocess, split='all',
-            exclude_planes=['Other'],
+            exclude_planes=['Other'],  max_samples=None,  # Add this parameter
         ):
         self.root = dir_images
         self.preprocess = preprocess
@@ -51,6 +51,9 @@ class DatasetFetalPlanesDB(torch.utils.data.Dataset):
                 'plane': row['Plane'],
                 'pid': row['Patient_num'],
             })
+        # Add this line to limit samples
+        if max_samples is not None:
+            self.data = self.data[:max_samples]
     
     def __len__(self):
         return len(self.data)
@@ -110,7 +113,7 @@ def main(checkpoint):
     model, _, preprocess = open_clip.create_model_and_transforms("FetalCLIP", pretrained=checkpoint)
     tokenizer = open_clip.get_tokenizer("FetalCLIP")
 
-    ds = DatasetFetalPlanesDB(DIR_IMAGES, PATH_CSV, preprocess, split='all', exclude_planes=['Other'])
+    ds = DatasetFetalPlanesDB(DIR_IMAGES, PATH_CSV, preprocess, split='all', exclude_planes=['Other'], max_samples=200)
     dl = torch.utils.data.DataLoader(ds, batch_size=BATCH_SIZE, shuffle=False, num_workers=NUM_WORKERS)
 
     model.eval()

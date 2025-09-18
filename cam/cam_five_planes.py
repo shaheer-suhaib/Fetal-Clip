@@ -15,15 +15,15 @@ from pytorch_grad_cam import GradCAM, ScoreCAM
 from pytorch_grad_cam.utils.image import show_cam_on_image
 from pytorch_grad_cam.utils.model_targets import ClassifierOutputTarget
 
-ROOT_DIR = '<path_to_fetal_planes_db_data>/Images'
-PATH_CSV = '<path_to_fetal_planes_db_data>/FETAL_PLANES_DB_data.csv'
+ROOT_DIR = "../data/Planes/FETAL_PLANES_ZENODO/Images"
+PATH_CSV = "../data/Planes/FETAL_PLANES_ZENODO/FETAL_PLANES_DB_data.csv"
 PATH_FETALCLIP_WEIGHT = "../FetalCLIP_weights.pt"
 PATH_FETALCLIP_CONFIG = "../FetalCLIP_config.json"
 PATH_TEXT_PROMPTS = "test_five_planes_prompts.json"
 SAVE_DIR = 'CAM_5_planes'
 SAVE_DIR_ORI_IMG = os.path.join(SAVE_DIR, 'Image')
 
-BATCH_SIZE = 16
+BATCH_SIZE = 1
 NUM_WORKERS = 4
 N_SAMPLES = 10
 
@@ -57,7 +57,7 @@ class DatasetFetalPlanesDB(torch.utils.data.Dataset):
     """
     def __init__(
             self, root_dir, path_csv, preprocess, split='all',
-            exclude_planes=['Other'],
+            exclude_planes=['Other'], sample_size=None
         ):
         self.root = root_dir
         self.preprocess = preprocess
@@ -70,6 +70,9 @@ class DatasetFetalPlanesDB(torch.utils.data.Dataset):
         
         for plane in exclude_planes:
             df = df[df['Plane'] != plane]
+          # Limit sample size if specified
+        if sample_size is not None:
+            df = df.head(sample_size)
         
         self.data = []
         for _, row in df.iterrows():
@@ -160,7 +163,7 @@ class ModelWrapper(torch.nn.Module):
 model, _, preprocess = open_clip.create_model_and_transforms("FetalCLIP", pretrained=PATH_FETALCLIP_WEIGHT)
 tokenizer = open_clip.get_tokenizer("FetalCLIP")
 
-ds = DatasetFetalPlanesDB(ROOT_DIR, PATH_CSV, preprocess, split='all', exclude_planes=['Other'])
+ds = DatasetFetalPlanesDB(ROOT_DIR, PATH_CSV, preprocess, split='all', exclude_planes=['Other'],sample_size=3)
 dl = torch.utils.data.DataLoader(ds, batch_size=BATCH_SIZE, shuffle=False, num_workers=NUM_WORKERS)
 
 model_wrapper = ModelWrapper(model, preprocess, tokenizer)

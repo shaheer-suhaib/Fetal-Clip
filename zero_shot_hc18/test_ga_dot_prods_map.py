@@ -7,8 +7,8 @@ from tqdm import tqdm
 from PIL import Image
 import open_clip
 
-DIR_IMAGES = '<path_to_hc18_data>/training_set'
-PATH_CSV = '<path_to_hc18_data>/training_set_pixel_size_and_HC.csv'
+DIR_IMAGES = '../data/training_set'
+PATH_CSV = '../data/training_set_pixel_size_and_HC.csv'
 PATH_FETALCLIP_WEIGHT = "../FetalCLIP_weights.pt"
 PATH_FETALCLIP_CONFIG = "../FetalCLIP_config.json"
 NUM_WORKERS = 4
@@ -67,13 +67,16 @@ def make_image_square_with_zero_padding(image):
 
 
 class HCDataset(torch.utils.data.Dataset):
-    def __init__(self, root_dir, path_csv, preprocess=None):
+    def __init__(self, root_dir, path_csv, preprocess=None,sample_size = None):
         self.root_dir = root_dir
         self.preprocess = preprocess
 
         df = pd.read_csv(path_csv)
         df = df[df['head circumference (mm)'] >= MIN_HC]
         df = df[df['head circumference (mm)'] <= MAX_HC]
+               # Limit to first N images if specified
+        if sample_size is not None:
+            df = df.head(sample_size)
 
         self.data = df.to_dict(orient='records')
 
@@ -131,7 +134,7 @@ def main(checkpoint):
     model.eval()
     model.to(device)
 
-    ds = HCDataset(DIR_IMAGES, PATH_CSV, preprocess)
+    ds = HCDataset(DIR_IMAGES, PATH_CSV, preprocess,sample_size=10)
     dl = torch.utils.data.DataLoader(ds, batch_size=1, shuffle=False, num_workers=NUM_WORKERS)
     print("len(ds)", len(ds))
 

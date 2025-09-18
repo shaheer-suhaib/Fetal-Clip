@@ -1,1 +1,5 @@
 why to add descriptions and its use
+
+they removed the the {pixel_spacing} and gestational age.
+
+if we are using zero shot then how will be used in real world as we have to provide captions

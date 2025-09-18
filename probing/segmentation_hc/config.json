@@ -1,6 +1,7 @@
+
 {
   "paths": {
-    "dir_data": "<path_to_hc_18_data>/training_set",
+  "dir_data": "FetalCLIP/data/training_set",
     "path_train_val_split": "train_val_split.json",
     "path_test_split": "test_split.json",
     "dir_preprocessed": "<path_to_preprocessed_data>",

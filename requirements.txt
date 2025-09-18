@@ -30,4 +30,5 @@ jupyter
 jupyterlab
 tensorboard
 wandb
+pydantic==2.10.6
 --extra-index-url https://download.pytorch.org/whl/cu117
